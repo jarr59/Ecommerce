@@ -1,4 +1,4 @@
-﻿namespace EcommerceKernel.Enums;
+﻿namespace Ecommerce.Enums;
 
 /// <summary>
 /// Diferentes formatos de marcados de texto

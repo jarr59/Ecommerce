@@ -1,4 +1,4 @@
-﻿using EcommerceKernel.Interfaces;
+﻿using Ecommerce.Interfaces;
 
 namespace Ecommerce.Products.Interfaces;
 

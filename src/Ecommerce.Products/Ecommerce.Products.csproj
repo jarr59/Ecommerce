@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EcommerceKernel\EcommerceKernel.csproj" />
+    <ProjectReference Include="..\Ecommerce\Ecommerce.csproj" />
   </ItemGroup>
 
 </Project>

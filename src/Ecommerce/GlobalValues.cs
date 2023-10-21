@@ -1,4 +1,4 @@
-﻿namespace EcommerceKernel
+﻿namespace Ecommerce
 {
     public class GlobalValues
     {
