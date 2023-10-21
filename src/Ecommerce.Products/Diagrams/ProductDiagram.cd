@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EcommerceKernel.CommonClass.Multimedia">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="EcommerceKernel.ValueObjects.DescriptionVo">
+    <Position X="3.5" Y="5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="TextualMarkup" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EcommerceKernel.ValueObjects.DynamicFieldVo">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Ecommerce.Products.Product">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABAAAAgAAAAAEgAAAAQAAAAIAAAAAAAAAAQBAAA=</HashCode>
+      <FileName>Product.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LargeDescription" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Multimedias" />
+      <Property Name="DynamicFields" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EcommerceKernel.Enums.TextualMarkup">
+    <Position X="7" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
