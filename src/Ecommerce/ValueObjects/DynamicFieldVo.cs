@@ -1,4 +1,4 @@
-﻿namespace EcommerceKernel.ValueObjects
+﻿namespace Ecommerce.ValueObjects
 {
     /// <summary>
     /// Representa un dato dinamico, permite guardar valores que no estan definidos en el modelo y son muy propios de cada implementacion

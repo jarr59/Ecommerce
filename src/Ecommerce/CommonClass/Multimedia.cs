@@ -1,4 +1,4 @@
-﻿namespace EcommerceKernel.CommonClass
+﻿namespace Ecommerce.CommonClass
 {
     public class Multimedia
     {

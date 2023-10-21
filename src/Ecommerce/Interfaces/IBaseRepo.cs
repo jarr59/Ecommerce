@@ -1,4 +1,4 @@
-﻿namespace EcommerceKernel.Interfaces;
+﻿namespace Ecommerce.Interfaces;
 
 public interface IBaseRepo
 {

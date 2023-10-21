@@ -1,5 +1,4 @@
-﻿using EcommerceKernel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecommerce.Products.Data.Mappings

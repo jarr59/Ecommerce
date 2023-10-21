@@ -1,5 +1,5 @@
-﻿using EcommerceKernel.CommonClass;
-using EcommerceKernel.ValueObjects;
+﻿using Ecommerce.CommonClass;
+using Ecommerce.ValueObjects;
 
 namespace Ecommerce.Products;
 

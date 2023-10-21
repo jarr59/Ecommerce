@@ -1,6 +1,6 @@
-﻿using EcommerceKernel.Enums;
+﻿using Ecommerce.Enums;
 
-namespace EcommerceKernel.ValueObjects;
+namespace Ecommerce.ValueObjects;
 
 /// <summary>
 /// Representa la descripcion de un objecto, puede representarse un html, texto plano, XML, etc 
