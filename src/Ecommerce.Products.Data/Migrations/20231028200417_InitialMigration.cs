@@ -19,8 +19,8 @@ namespace Ecommerce.Products.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    LargeDescription_TextualMarkup = table.Column<int>(type: "int", nullable: false),
-                    LargeDescription_Value = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
+                    LargeDescription_TextualMarkup = table.Column<int>(type: "int", nullable: true),
+                    LargeDescription_Value = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>

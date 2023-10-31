@@ -54,7 +54,7 @@ namespace Ecommerce.Products.Data.Migrations
 
             modelBuilder.Entity("Ecommerce.Products.Product", b =>
                 {
-                    b.OwnsMany("EcommerceKernel.CommonClass.Multimedia", "Multimedias", b1 =>
+                    b.OwnsMany("Ecommerce.CommonClass.Multimedia", "Multimedias", b1 =>
                         {
                             b1.Property<string>("AccountId")
                                 .HasColumnType("nvarchar(50)");
@@ -89,7 +89,7 @@ namespace Ecommerce.Products.Data.Migrations
                                 .HasForeignKey("AccountId", "Id");
                         });
 
-                    b.OwnsOne("EcommerceKernel.ValueObjects.DescriptionVo", "LargeDescription", b1 =>
+                    b.OwnsOne("Ecommerce.ValueObjects.DescriptionVo", "LargeDescription", b1 =>
                         {
                             b1.Property<string>("ProductAccountId")
                                 .HasColumnType("nvarchar(50)");
@@ -113,7 +113,7 @@ namespace Ecommerce.Products.Data.Migrations
                                 .HasForeignKey("ProductAccountId", "ProductId");
                         });
 
-                    b.OwnsMany("EcommerceKernel.ValueObjects.DynamicFieldVo", "DynamicFields", b1 =>
+                    b.OwnsMany("Ecommerce.ValueObjects.DynamicFieldVo", "DynamicFields", b1 =>
                         {
                             b1.Property<string>("ProductAccountId")
                                 .HasColumnType("nvarchar(50)");
@@ -147,8 +147,7 @@ namespace Ecommerce.Products.Data.Migrations
 
                     b.Navigation("DynamicFields");
 
-                    b.Navigation("LargeDescription")
-                        .IsRequired();
+                    b.Navigation("LargeDescription");
 
                     b.Navigation("Multimedias");
                 });
