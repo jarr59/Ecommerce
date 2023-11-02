@@ -1,0 +1,48 @@
+﻿@using Ecommcerce.Web.Admin.Products.ViewModels;
+@inject NavigationManager _navigationManager
+
+<div class="p-2">
+    <EditForm Model="ProductsFiltersVm">
+        <div class="mb-3">
+            <label for="nameFilter" class="form-label">Nombre</label>
+            <InputText class="form-control" id="nameFilter" @bind-Value="ProductsFiltersVm.Name" />
+        </div>
+        <div class="mb-3">
+            <label for="nameFilter" class="form-label">Estado</label>
+            <InputSelect class="form-select" aria-label="Seleccion de menu de estados" @bind-Value="ProductsFiltersVm.StateSelection">
+                <option value="@StateSelectionOptions.All">Todos</option>
+                <option value="@StateSelectionOptions.Active">Activos</option>
+                <option value="@StateSelectionOptions.Inactive">Inactivos</option>
+            </InputSelect>
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="OnClickSearch">Buscar</button>
+    </EditForm>
+</div>
+
+
+@code {
+    /// <summary>
+    /// Viewmodel para controlar los filtros
+    /// </summary>
+    [Parameter]
+    public ProductsFiltersVm ProductsFiltersVm { get; set; } = new();
+
+    /// <summary>
+    /// Evento que se dispara al presionar click en buscar
+    /// </summary>
+    void OnClickSearch()
+    {
+        Dictionary<string, object?> parameters = new()
+        {
+            { nameof(ProductsFiltersVm.ProductIds).ToLower(), ProductsFiltersVm.ProductIds },
+            { nameof(ProductsFiltersVm.Name).ToLower(), ProductsFiltersVm.Name },
+            { nameof(ProductsFiltersVm.Brands).ToLower(), ProductsFiltersVm.Brands },
+            { nameof(ProductsFiltersVm.StateSelection).ToLower(), ProductsFiltersVm.StateSelection.ToString() },
+            { "page", 1 }
+        };
+
+        string urlWithParameters = _navigationManager.GetUriWithQueryParameters(parameters);
+
+        _navigationManager.NavigateTo(urlWithParameters);
+    }
+}

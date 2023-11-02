@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{8E227002-6D35-4DF3-860B-11D498316DB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommcerce.Web.Admin", "Ecommcerce.Web.Admin\Ecommcerce.Web.Admin.csproj", "{A42A8064-0B88-4AE1-B83E-0F2FB01AF07F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommcerce.Web.Admin", "Ecommcerce.Web.Admin\Ecommcerce.Web.Admin.csproj", "{A42A8064-0B88-4AE1-B83E-0F2FB01AF07F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommcerce.Web.Admin.Store", "Ecommcerce.Web.Admin.Store\Ecommcerce.Web.Admin.Store.csproj", "{F9E0FEC5-93F6-4B0C-8924-B2043F1983B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommcerce.Web.Admin.Store", "Ecommcerce.Web.Admin.Store\Ecommcerce.Web.Admin.Store.csproj", "{F9E0FEC5-93F6-4B0C-8924-B2043F1983B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

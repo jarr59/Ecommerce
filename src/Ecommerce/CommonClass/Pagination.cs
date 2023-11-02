@@ -39,9 +39,11 @@
         /// <returns></returns>
         public int TotalPages()
         {
-            decimal result = ItemPerPage / TotalItemsCount;
+            decimal result = TotalItemsCount / ItemPerPage;
 
-            return (int)Math.Ceiling(result);
+            int countPage = (int)Math.Ceiling(result);
+
+            return countPage;
         }
     }
 }

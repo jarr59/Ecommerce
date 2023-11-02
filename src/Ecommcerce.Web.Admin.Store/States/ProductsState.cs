@@ -1,4 +1,5 @@
-﻿using Ecommerce.CommonClass;
+﻿using Ecommerce;
+using Ecommerce.CommonClass;
 using Ecommerce.Products;
 using Fluxor;
 
@@ -12,10 +13,10 @@ namespace Ecommcerce.Web.Admin.Store.States
     /// <summary>
     /// State que representa los ultimos filtros seleccionados
     /// </summary>
-    public record ProductFiltersState(List<string>? ProductIds,
+    public record ProductFiltersState(IEnumerable<string>? ProductIds,
                                       string? Name,
-                                      bool? IsActive,
-                                      List<string>? Brands,
+                                      StateSelectionOptions StateSelection,
+                                      IEnumerable<string>? Brands,
                                       int Page,
                                       int ItemsPerPage,
                                       bool ShowLoader,
@@ -29,7 +30,7 @@ namespace Ecommcerce.Web.Admin.Store.States
         protected override ProductsState GetInitialState() =>
             new(FiltersState: new(ProductIds: null,
                                   Name: null,
-                                  IsActive: null,
+                                  StateSelection: StateSelectionOptions.All,
                                   Brands: null,
                                   Page: 1,
                                   ItemsPerPage: 100,

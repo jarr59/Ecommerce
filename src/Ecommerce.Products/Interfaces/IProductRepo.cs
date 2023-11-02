@@ -15,10 +15,10 @@ public interface IProductRepo : IBaseRepo<Product>
     /// <param name="Brands">Listado de marcas</param>
     /// <returns></returns>
     Task<Pagination<Product>> GetPagination(string accountId,
-                                            List<string> productIds,
+                                            IEnumerable<string> productIds,
                                             string? name,
                                             bool? isActive,
-                                            List<string> brands,
+                                            IEnumerable<string> brands,
                                             int page, 
                                             int itemsPerPage);
 }

@@ -19,12 +19,12 @@ namespace Ecommerce.Products
         /// <param name="itemsPerPage">Items por pagina</param>
         [Get(URLBASE)]
         Task<Pagination<ProductOutput>> GetProducts(string accountId,
-                                                    [Query(CollectionFormat = CollectionFormat.Multi)] List<string>? productIds,
+                                                    [Query(CollectionFormat = CollectionFormat.Multi)] IEnumerable<string>? productIds,
                                                     [Query] string? name,
                                                     [Query] bool? isActive,
-                                                    [Query(CollectionFormat = CollectionFormat.Multi)] List<string>? brands,
+                                                    [Query(CollectionFormat = CollectionFormat.Multi)] IEnumerable<string>? brands,
                                                     [Query] int page = 1,
-                                                    [Query] int itemsPerPage = 100);
+                                                    [Query] int itemsPerPage = 10);
 
         /// <summary>
         /// Actualiza o crea un listado de productos
@@ -34,6 +34,6 @@ namespace Ecommerce.Products
         /// <returns></returns>
         [Patch(URLBASE)]
         Task<IEnumerable<ProductOutput>> PatchProducts(string accountId,
-                                                       [Body] List<UpdateProductInput> input);
+                                                       [Body] IEnumerable<UpdateProductInput> input);
     }
 }
