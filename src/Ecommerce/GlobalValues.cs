@@ -24,14 +24,4 @@ namespace Ecommerce
         /// </summary>
         public const int EXTRALARGEFIELD = 2000;
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum StateSelectionOptions
-    {
-        All,
-        Active,
-        Inactive
-    }
 }
