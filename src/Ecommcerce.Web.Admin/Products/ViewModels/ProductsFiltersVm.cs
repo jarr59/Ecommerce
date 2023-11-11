@@ -1,4 +1,4 @@
-﻿using Ecommerce;
+﻿using Ecommerce.Enums;
 
 namespace Ecommcerce.Web.Admin.Products.ViewModels
 {
@@ -23,5 +23,10 @@ namespace Ecommcerce.Web.Admin.Products.ViewModels
         /// Filtrar por un listado de marcas
         /// </summary>
         public IEnumerable<string>? Brands { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Page { get; set; }
     }
 }

@@ -11,11 +11,12 @@
 @inject IDispatcher _dispatcher
 @inject NavigationManager _navigationManager
 @inherits FluxorComponent
+@inject IState<ProductsState> _productsState
 
 
-<ProductsFilters  ProductsFiltersVm="_productsFiltersVm"/>
+<ProductsFilters  ProductsFiltersVm="productsFiltersVm"/>
 
-@if (_showLoader)
+@if (showLoader)
 {
     <p>Cargando...</p>
 }
@@ -31,9 +32,9 @@ else
             </tr>
         </thead>
         <tbody>
-            @if (_pagination != null)
+            @if (pagination != null)
             {
-                @foreach (var item in _pagination.Collection)
+                @foreach (var item in pagination.Collection)
                 {
                     <tr>
                         <th scope="row">@item.Id</th>
@@ -47,11 +48,11 @@ else
     </table>
 }
 
-@if (_pagination != null)
+@if (pagination != null)
 {
     <div class="p-1">
-        <PaginationComponent CurrentPage="_pagination.Page"
-                             PageCount="_pagination.TotalPages()"
+        <PaginationComponent CurrentPage="pagination.Page"
+                             PageCount="pagination.TotalPages()"
                              ShowFirstLast="true"
                              OnPageChanged="OnClickChangePage"/>
     </div>
@@ -92,22 +93,22 @@ else
     /// </summary>
     [Parameter]
     [SupplyParameterFromQuery]
-    public int Page { get; set; }
+    public int? Page { get; set; }
 
     /// <summary>
     /// Vm de filtros de productos
     /// </summary>
-    ProductsFiltersVm _productsFiltersVm = new();
+    ProductsFiltersVm productsFiltersVm = new();
 
     /// <summary>
     /// 
     /// </summary>
-    Pagination<ProductOutput>? _pagination = null;
+    Pagination<ProductOutput>? pagination = null;
 
     /// <summary>
     /// 
     /// </summary>
-    bool _showLoader = false;
+    bool showLoader = false;
 
 
     protected override async Task OnInitializedAsync()
@@ -119,39 +120,40 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        bool? isActive = null;
+        SetFilterVm();
 
-        Enum.TryParse(StateSelection, out StateSelectionOptions newState);
-
-        switch (newState)
-        {
-            case StateSelectionOptions.All:
-                isActive = null;
-                break;
-            case StateSelectionOptions.Active:
-                isActive = true;
-                break;
-            case StateSelectionOptions.Inactive:
-                isActive = false;
-                break;    
-        }
-
-        _productsFiltersVm.ProductIds = ProductIds;
-        _productsFiltersVm.Name = Name;
-        _productsFiltersVm.Brands = Brands;
-        _productsFiltersVm.StateSelection = newState;
-
-        StartGetProductsPaginated action = new(ProductIds: _productsFiltersVm.ProductIds,
-                                               Name: _productsFiltersVm.Name,
-                                               IsActive: isActive,
-                                               Brands: _productsFiltersVm.Brands,
-                                               Page: Page < 1 ? 1 : Page,
-                                               ItemsPerPage: 10);
+        StartGetProductsPaginated action = new(new( ProductIds: productsFiltersVm.ProductIds?.ToList(),
+                                               Name: productsFiltersVm.Name,
+                                               StateSelectionOptions: productsFiltersVm.StateSelection,
+                                               Brands: productsFiltersVm.Brands?.ToList(),
+                                               Page: productsFiltersVm.Page,
+                                               ItemsPerPage: 10));
         _dispatcher.Dispatch(action);
 
         await base.OnParametersSetAsync(); 
     }
+    void SetFilterVm()
+    {
+        if (ProductIds?.Any() == false && Name is null && Brands?.Any() == false && StateSelection is null && Page is null && _productsState.Value.FiltersState != null)
+        {
+            productsFiltersVm.ProductIds = _productsState.Value.FiltersState.ProductIds;
+            productsFiltersVm.Name = _productsState.Value.FiltersState.Name;
+            productsFiltersVm.Brands = _productsState.Value.FiltersState.Brands;
+            productsFiltersVm.StateSelection = _productsState.Value.FiltersState.StateSelection;
+            productsFiltersVm.Page = _productsState.Value.FiltersState.Page;
 
+            return;
+        }
+
+        Enum.TryParse(StateSelection, out StateSelectionOptions newState);
+
+        productsFiltersVm.ProductIds = ProductIds;
+        productsFiltersVm.Name = Name;
+        productsFiltersVm.Brands = Brands;
+        productsFiltersVm.StateSelection = newState;
+        productsFiltersVm.Page = Page ?? 1;
+
+    }
     /// <summary>
     /// Evento que se dispara al presionar click en buscar
     /// </summary>
@@ -166,6 +168,15 @@ else
             { nameof(Page).ToLower(), page }
         };
 
+        FiltersData filtersData = new(ProductIds: productsFiltersVm.ProductIds,
+                              Name: productsFiltersVm.Name,
+                              StateSelectionOptions: productsFiltersVm.StateSelection,
+                              Brands: productsFiltersVm.Brands,
+                              Page: page,
+                              ItemsPerPage: 10);
+
+        _dispatcher.Dispatch(new SetNewFilters(filtersData));
+
         string urlWithParameters = _navigationManager.GetUriWithQueryParameters(parameters);
 
         _navigationManager.NavigateTo(urlWithParameters);
@@ -173,8 +184,8 @@ else
 
     void OnEndGetProductsPaginated(EndGetProductsPaginated action)
     {
-        _pagination = action.Pagination;
+        pagination = action.Pagination;
 
-        _showLoader = false;
+        showLoader = false;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Ecommcerce.Web.Admin.Store.Actions;
+using Ecommcerce.Web.Admin.Store.Helpers;
 using Ecommerce.CommonClass;
 using Ecommerce.Products;
 using Fluxor;
@@ -18,12 +19,12 @@ class StartGetProductsPaginatedEffect : Effect<StartGetProductsPaginated>
     {
         Pagination<ProductOutput> products = 
             await _productSdk.GetProducts(accountId: "test",
-                                          productIds: action.ProductIds,
-                                          name: action.Name,
-                                          isActive: action.IsActive,
-                                          brands: action.Brands,
-                                          page: action.Page,
-                                          itemsPerPage: action.ItemsPerPage);
+                                          productIds: action.FiltersData.ProductIds,
+                                          name: action.FiltersData.Name,
+                                          isActive: CommonHelper.ConvertStateSelectionToBool(action.FiltersData.StateSelectionOptions),
+                                          brands: action.FiltersData.Brands,
+                                          page: action.FiltersData.Page < 1 ? 1 : action.FiltersData.Page,
+                                          itemsPerPage: action.FiltersData.ItemsPerPage);
 
         dispatcher.Dispatch(new EndGetProductsPaginated(products));
     }

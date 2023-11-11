@@ -2,6 +2,7 @@
 using Ecommcerce.Web.Admin.Store.States;
 using Ecommerce;
 using Fluxor;
+using System.Xml.Linq;
 
 namespace Ecommcerce.Web.Admin.Store.Reducers
 {
@@ -56,5 +57,35 @@ namespace Ecommcerce.Web.Admin.Store.Reducers
         //        FiltersState = productFiltersState
         //    };
         //}
+
+        [ReducerMethod]
+        public static ProductsState OnSetNewFilters(ProductsState state, SetNewFilters action)
+        {
+            ProductFiltersState? productFiltersState = state.FiltersState;
+
+            if (state.FiltersState is not null)
+            {
+                productFiltersState = state.FiltersState with
+                {
+                    ProductIds = action.FiltersData.ProductIds,
+                    Name = action.FiltersData.Name,
+                    StateSelection = action.FiltersData.StateSelectionOptions,
+                    Brands = action.FiltersData.Brands,
+                    Page = action.FiltersData.Page,
+                    ItemsPerPage = action.FiltersData.ItemsPerPage,
+                };
+            }
+            productFiltersState ??= new(ProductIds: action.FiltersData.ProductIds,
+                                          Name: action.FiltersData.Name,
+                                          StateSelection: action.FiltersData.StateSelectionOptions,
+                                          Brands: action.FiltersData.Brands,
+                                          Page: action.FiltersData.Page,
+                                          ItemsPerPage: action.FiltersData.ItemsPerPage);
+
+            return state with
+            {
+                FiltersState = productFiltersState
+            };
+        }
     }
 }
