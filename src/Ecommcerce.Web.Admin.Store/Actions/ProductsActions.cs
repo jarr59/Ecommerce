@@ -12,10 +12,10 @@ namespace Ecommcerce.Web.Admin.Store.Actions;
 /// <param name="Brands">Listado de marcas</param>
 /// <param name="Page">Pagina a buscar</param>
 /// <param name="ItemsPerPage">Items por pagina</param>
-public record StartGetProductsPaginated(List<string>? ProductIds,
+public record StartGetProductsPaginated(IEnumerable<string>? ProductIds,
                                         string? Name,
                                         bool? IsActive,
-                                        List<string>? Brands,
+                                        IEnumerable<string>? Brands,
                                         int Page,
                                         int ItemsPerPage);
 
@@ -23,3 +23,4 @@ public record StartGetProductsPaginated(List<string>? ProductIds,
 /// Accion que se despacha al terminar de obtener los productos paginados
 /// </summary>
 public record EndGetProductsPaginated(Pagination<ProductOutput> Pagination);
+

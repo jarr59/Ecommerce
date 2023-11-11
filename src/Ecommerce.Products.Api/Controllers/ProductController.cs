@@ -35,10 +35,10 @@ namespace Ecommerce.Products.Api.Controllers
         /// <param name="itemsPerPage">Items por pagina</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromRoute] string accountId, [FromQuery] List<string>? productIds,
+        public async Task<IActionResult> GetProducts([FromRoute] string accountId, [FromQuery] IEnumerable<string>? productIds,
                                                      [FromQuery] string? name, [FromQuery] bool? isActive, 
-                                                     [FromQuery] List<string>? brands, [FromQuery] int page = 1, 
-                                                     [FromQuery] int itemsPerPage = 100)
+                                                     [FromQuery] IEnumerable<string>? brands, [FromQuery] int page = 1, 
+                                                     [FromQuery] int itemsPerPage = 15)
         {
             GetProductsPaginated query = new(AccountId: accountId,
                                              ProductIds: productIds,

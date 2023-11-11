@@ -1,0 +1,180 @@
+﻿@page "/products"
+@using Ecommcerce.Web.Admin.Products.Components
+@using Ecommcerce.Web.Admin.Products.ViewModels;
+@using Ecommcerce.Web.Admin.Shared.Components
+@using Ecommcerce.Web.Admin.Store.Actions;
+@using Ecommcerce.Web.Admin.Store.States;
+@using Ecommerce;
+@using System.Text.Json.Serialization;
+@using Ecommerce.CommonClass;
+@using Ecommerce.Products;
+@inject IDispatcher _dispatcher
+@inject NavigationManager _navigationManager
+@inherits FluxorComponent
+
+
+<ProductsFilters  ProductsFiltersVm="_productsFiltersVm"/>
+
+@if (_showLoader)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Activo</th>
+                <th scope="col">Marca</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_pagination != null)
+            {
+                @foreach (var item in _pagination.Collection)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Name</td>
+                        <td>@item.IsActive</td>
+                        <td>@item.Brand</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+@if (_pagination != null)
+{
+    <div class="p-1">
+        <PaginationComponent CurrentPage="_pagination.Page"
+                             PageCount="_pagination.TotalPages()"
+                             ShowFirstLast="true"
+                             OnPageChanged="OnClickChangePage"/>
+    </div>
+}
+
+
+@code {
+    /// <summary>
+    /// Filtrar por listado de de ids de productos
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string[]? ProductIds { get; set; }
+
+    /// <summary>
+    /// Filtrar por contenido en el nombre
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// Filtrar por un listado de marcas
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string[]? Brands { get; set; }
+
+    /// <summary>
+    /// Filtra por productos en un estado
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? StateSelection { get; set; }
+
+    /// <summary>
+    /// Numero de pagina
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int Page { get; set; }
+
+    /// <summary>
+    /// Vm de filtros de productos
+    /// </summary>
+    ProductsFiltersVm _productsFiltersVm = new();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    Pagination<ProductOutput>? _pagination = null;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    bool _showLoader = false;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        SubscribeToAction<EndGetProductsPaginated>(OnEndGetProductsPaginated);
+
+        await base.OnInitializedAsync();   
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        bool? isActive = null;
+
+        Enum.TryParse(StateSelection, out StateSelectionOptions newState);
+
+        switch (newState)
+        {
+            case StateSelectionOptions.All:
+                isActive = null;
+                break;
+            case StateSelectionOptions.Active:
+                isActive = true;
+                break;
+            case StateSelectionOptions.Inactive:
+                isActive = false;
+                break;    
+        }
+
+        _productsFiltersVm.ProductIds = ProductIds;
+        _productsFiltersVm.Name = Name;
+        _productsFiltersVm.Brands = Brands;
+        _productsFiltersVm.StateSelection = newState;
+
+        StartGetProductsPaginated action = new(ProductIds: _productsFiltersVm.ProductIds,
+                                               Name: _productsFiltersVm.Name,
+                                               IsActive: isActive,
+                                               Brands: _productsFiltersVm.Brands,
+                                               Page: Page < 1 ? 1 : Page,
+                                               ItemsPerPage: 10);
+        _dispatcher.Dispatch(action);
+
+        await base.OnParametersSetAsync(); 
+    }
+
+    /// <summary>
+    /// Evento que se dispara al presionar click en buscar
+    /// </summary>
+    void OnClickChangePage(int page)
+    {
+        Dictionary<string, object?> parameters = new()
+        {
+            { nameof(ProductIds).ToLower(), ProductIds },
+            { nameof(Name).ToLower(), Name },
+            { nameof(Brands).ToLower(), Brands },
+            { nameof(StateSelection).ToLower(), StateSelection },
+            { nameof(Page).ToLower(), page }
+        };
+
+        string urlWithParameters = _navigationManager.GetUriWithQueryParameters(parameters);
+
+        _navigationManager.NavigateTo(urlWithParameters);
+    }
+
+    void OnEndGetProductsPaginated(EndGetProductsPaginated action)
+    {
+        _pagination = action.Pagination;
+
+        _showLoader = false;
+    }
+}

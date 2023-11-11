@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Ecommcerce.Web.Admin.Store\Ecommcerce.Web.Admin.Store.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shared\ViewModels\" />
+  </ItemGroup>
+
 </Project>

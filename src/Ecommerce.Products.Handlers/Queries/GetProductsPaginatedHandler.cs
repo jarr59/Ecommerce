@@ -17,10 +17,10 @@ class GetProductsPaginatedHandler : IRequestHandler<GetProductsPaginated, Pagina
     public async Task<Pagination<Product>> Handle(GetProductsPaginated request, CancellationToken cancellationToken)
     {
         return await _productRepo.GetPagination(request.AccountId,
-                                                request.ProductIds ?? new(),
+                                                request.ProductIds ?? new List<string>(),
                                                 request.Name,
                                                 request.IsActive,
-                                                request.Brands ?? new(),
+                                                request.Brands ?? new List<string>(),
                                                 request.Page,
                                                 request.ItemsPerPage);
     }

@@ -29,7 +29,13 @@ namespace Ecommerce.Products.Data.Repositories
             return await _productContext.Products.Where(x => entityIds.Contains(x.Id) && x.AccountId == accountId).ToListAsync();
         }
 
-        public async Task<Pagination<Product>> GetPagination(string accountId, List<string> productIds, string? name, bool? isActive, List<string> brands, int page, int itemsPerPage)
+        public async Task<Pagination<Product>> GetPagination(string accountId,
+                                                            IEnumerable<string> productIds, 
+                                                            string? name,
+                                                            bool? isActive, 
+                                                            IEnumerable<string> brands, 
+                                                            int page, 
+                                                            int itemsPerPage)
         {
             Expression<Func<Product, bool>> expression = x => (x.AccountId == accountId) &&
                                                               (!productIds.Any() || productIds.Contains(x.Id)) &&
@@ -43,7 +49,7 @@ namespace Ecommerce.Products.Data.Repositories
                                                                           .OrderBy(x => x.Name)
                                                                           .ToListAsync();
 
-            int totalItems = await _productContext.Products.CountAsync();
+            int totalItems = await _productContext.Products.CountAsync(expression);
 
             return new Pagination<Product>(products, page, itemsPerPage, totalItems);
         }

@@ -1,4 +1,6 @@
-﻿namespace Ecommerce
+﻿using System.Text.Json.Serialization;
+
+namespace Ecommerce
 {
     public class GlobalValues
     {
@@ -21,5 +23,15 @@
         /// 
         /// </summary>
         public const int EXTRALARGEFIELD = 2000;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum StateSelectionOptions
+    {
+        All,
+        Active,
+        Inactive
     }
 }

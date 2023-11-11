@@ -12,9 +12,9 @@ namespace Ecommerce.Products.Queries;
 /// <param name="IsActive">Estado de producto</param>
 /// <param name="Brands">Listado de marcas</param>
 public record GetProductsPaginated(string AccountId,
-                                   List<string>? ProductIds,
+                                   IEnumerable<string>? ProductIds,
                                    string? Name,
                                    bool? IsActive,
-                                   List<string>? Brands,
+                                   IEnumerable<string>? Brands,
                                    int Page, 
                                    int ItemsPerPage) : IRequest<Pagination<Product>>;
