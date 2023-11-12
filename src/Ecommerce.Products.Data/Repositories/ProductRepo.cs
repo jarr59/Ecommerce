@@ -40,7 +40,7 @@ namespace Ecommerce.Products.Data.Repositories
             Expression<Func<Product, bool>> expression = x => (x.AccountId == accountId) &&
                                                               (!productIds.Any() || productIds.Contains(x.Id)) &&
                                                               (string.IsNullOrEmpty(name) || x.Name.Contains(name)) &&
-                                                              (isActive == null || (isActive == true && x.IsActive == true) || (isActive == false && x.IsActive == false)) &&
+                                                              //(isActive == null || (isActive == true && x.IsActive == true) || (isActive == false && x.IsActive == false)) &&
                                                               (!brands.Any() || (!string.IsNullOrEmpty(x.Brand) && brands.Contains(x.Brand)));
 
             IEnumerable<Product> products = await _productContext.Products.Where(expression)

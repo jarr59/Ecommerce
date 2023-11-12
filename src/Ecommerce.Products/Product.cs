@@ -1,4 +1,5 @@
 ﻿using Ecommerce.CommonClass;
+using Ecommerce.Enums;
 using Ecommerce.ValueObjects;
 
 namespace Ecommerce.Products;
@@ -45,7 +46,7 @@ public class Product
     /// <summary>
     /// Indica si el producto esta activo
     /// </summary>
-    public bool IsActive { get; private set; }
+    public ProductState ProductState { get; private set; }
 
     /// <summary>
     /// Descripcion corta del producto
@@ -80,12 +81,7 @@ public class Product
     /// <summary>
     /// Activa el producto
     /// </summary>
-    public void ActiveProduct() => IsActive = true;
-
-    /// <summary>
-    /// Desactiva el producto
-    /// </summary>
-    public void DeactiveProduct() => IsActive = false;
+    public void UpdateProductState(ProductState newState) => ProductState = newState;
 
     /// <summary>
     /// Actualiza la descripcion corta
