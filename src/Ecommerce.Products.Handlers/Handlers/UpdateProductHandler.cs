@@ -58,11 +58,7 @@ class UpdateProductHandler : IRequestHandler<UpdateProduct, IEnumerable<Product>
     /// <param name="productData"></param>
     void UpdateProduct(Product currentProduct, UpdateProductInput productData)
     {
-        if (productData.IsActive == true)
-            currentProduct.ActiveProduct();
-
-        if (productData.IsActive == false)
-            currentProduct.DeactiveProduct();
+        currentProduct.UpdateProductState(productData.ProductState);
 
         currentProduct.UpdateShortDescription(productData.ShortDescription);
 
