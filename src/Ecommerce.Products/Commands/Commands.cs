@@ -8,6 +8,6 @@ namespace Ecommerce.Products.Commands;
 /// Comando para actualizar un producto
 /// </summary>
 /// <param name="ProductsToUpdate"></param>
-public record UpdateProduct(List<UpdateProductInput> ProductsToUpdate, string AccountId) : IRequest<IEnumerable<Product>>;
+public record UpdateProduct(List<UpdateProductInput> ProductsToUpdate, string AccountId) : IRequest<List<Product>>;
 
 

@@ -10,6 +10,6 @@ public record UpdateProductInput(string? ProductId,
                                  string? ShortDescription,
                                  DescriptionVo? LargeDescription,
                                  string? Brand,
-                                 List<DynamicFieldVo>? DynamicFields);
+                                 List<DynamicFieldVo> DynamicFields);
 
 

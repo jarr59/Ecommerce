@@ -2,11 +2,14 @@
 
 namespace Ecommerce.Products.Data
 {
-    public class ProductContext : DbContext
+    public class ProductContext(DbContextOptions<ProductContext> options) : DbContext(options)
     {
-        public ProductContext(DbContextOptions<ProductContext> options) : base(options) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+        }
 
-        public DbSet<Product> Products { get; set; }
+        public required DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

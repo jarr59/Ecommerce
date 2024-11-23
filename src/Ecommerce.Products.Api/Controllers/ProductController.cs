@@ -35,9 +35,9 @@ namespace Ecommerce.Products.Api.Controllers
         /// <param name="itemsPerPage">Items por pagina</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromRoute] string accountId, [FromQuery] IEnumerable<string>? productIds,
+        public async Task<IActionResult> GetProducts([FromRoute] string accountId, [FromQuery] List<string>? productIds,
                                                      [FromQuery] string? name, [FromQuery] bool? isActive, 
-                                                     [FromQuery] IEnumerable<string>? brands, [FromQuery] int page = 1, 
+                                                     [FromQuery] List<string>? brands, [FromQuery] int page = 1, 
                                                      [FromQuery] int itemsPerPage = 15)
         {
             GetProductsPaginated query = new(AccountId: accountId,
@@ -65,9 +65,9 @@ namespace Ecommerce.Products.Api.Controllers
         {
             UpdateProduct command = new(input, accountId);
 
-            IEnumerable<ProductOutput> products = _mapper.Map<IEnumerable<ProductOutput>>(await _mediator.Send(command));
+            List<Product> restul = await _mediator.Send(command);
 
-            return Ok(products);
+            return Ok(restul);
         }
     }
 }

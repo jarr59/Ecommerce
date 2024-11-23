@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Products.Handlers.Handlers;
 
-class UpdateProductHandler : IRequestHandler<UpdateProduct, IEnumerable<Product>>
+public class UpdateProductHandler : IRequestHandler<UpdateProduct, List<Product>>
 {
     readonly IProductRepo _productRepo;
 
@@ -13,7 +13,7 @@ class UpdateProductHandler : IRequestHandler<UpdateProduct, IEnumerable<Product>
         _productRepo = productRepo;
     }
 
-    public async Task<IEnumerable<Product>> Handle(UpdateProduct request, CancellationToken cancellationToken)
+    public async Task<List<Product>> Handle(UpdateProduct request, CancellationToken cancellationToken)
     {
         List<Product> productExist =
             await _productRepo.GetByIds(request.ProductsToUpdate
@@ -66,7 +66,9 @@ class UpdateProductHandler : IRequestHandler<UpdateProduct, IEnumerable<Product>
 
         currentProduct.UpdateBrand(productData.Brand);
 
-        if (productData.DynamicFields?.Any() == true)
+        if (productData.DynamicFields.Count != 0)
+        {
             currentProduct.AddDynamicFields(productData.DynamicFields);
+        }
     }
 }
