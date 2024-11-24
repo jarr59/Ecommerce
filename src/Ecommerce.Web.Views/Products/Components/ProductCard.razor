@@ -1,0 +1,35 @@
+﻿<div class="card">
+    <img src="@Image" class="card-img-top" alt="@($"Image for {Name}")">
+    <div class="card-body">
+        <h5 class="card-title">@Name</h5>
+        <p class="card-text">
+            @Description
+        </p>
+    </div>
+</div>
+
+@code {
+    /// <summary>
+    /// Product Id
+    /// </summary>
+    [Parameter]
+    public required string ProductId { get; set; }
+
+    /// <summary>
+    /// Name of Product
+    /// </summary>
+    [Parameter]
+    public required string Name { get; set; }
+
+    /// <summary>
+    /// Image of Product
+    /// </summary>
+    [Parameter]
+    public required string Image { get; set; }
+
+    /// <summary>
+    /// Description of Product 
+    /// </summary>
+    [Parameter]
+    public required string Description { get; set; }
+}

@@ -1,0 +1,19 @@
+﻿@page "/products"
+@using Ecommerce.Web.Views.Products.Components
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    @for (int i = 0; i < 100; i++)
+    {
+        <div class="col">
+            <ProductCard Name="PRODUCT DE TEST"
+                         Description="DESCRIPCION PRODUCT DE TEST"
+                         Image="https://img.freepik.com/free-psd/shoes-sale-social-media-post-square-banner-template-design_505751-3608.jpg?t=st=1732423010~exp=1732426610~hmac=aa3f2794343ac117cc095df897ab1931c59278ae27d4c4868f27b08e9801c19b&w=826"
+                         ProductId="@i.ToString()" />
+        </div>
+    }
+    
+</div>
+
+@code {
+
+}
